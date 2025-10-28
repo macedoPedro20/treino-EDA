@@ -33,34 +33,28 @@ void printVetor(int *vetor, int tam)
     printf("]\n");
 }
 
-void selectionSort(int *vetor, int tam)
+void insertionSort(int *vetor, int tam)
 {
-    printf("Iniciando Selection Sort:\n");
-    for (int i = 0; i < tam - 1; i++)
+    printf("Iniciando Insertion Sort:\n");
+    for (int i = 1; i < tam; i++)
     {
-        int minIndex = i;
-        for (int j = i + 1; j < tam; j++)
-        {
-            if (vetor[j] < vetor[minIndex])
-            {
-                minIndex = j;
-            }
-        }
+        int chave = vetor[i];
+        int j = i - 1;
 
-        if (minIndex != i)
-        {
-            int old_i = vetor[i];
-            int old_min = vetor[minIndex];
+        printf("Passo i=%d, chave=%d", i, chave);
+        printVetor(vetor, tam);
 
-            int temp = vetor[i];
-            vetor[i] = vetor[minIndex];
-            vetor[minIndex] = temp;
-            printf("Trocando o vetor: \n");
+        while (j >= 0 && vetor[j] > chave)
+        {
+            vetor[j + 1] = vetor[j];
+            j = j - 1;
             printVetor(vetor, tam);
         }
+
+        vetor[j + 1] = chave;
+        printVetor(vetor, tam);
     }
 }
-
 int main()
 {
     int tamanho;
@@ -72,9 +66,9 @@ int main()
     printf("Vetor original:\n");
     printVetor(vetor, tamanho);
 
-    selectionSort(vetor, tamanho);
-    printf("Vetor ordenado por selection sort:\n");
+    insertionSort(vetor, tamanho);
+    printf("Vetor ordenado por insertion sort:\n");
     printVetor(vetor, tamanho);
-    return 0;
     free(vetor);
+    return 0;
 }
